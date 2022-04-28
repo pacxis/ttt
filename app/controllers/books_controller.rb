@@ -1,7 +1,8 @@
 class BooksController < ApplicationController
   # DEBUG - REMOVE FOR PRODUCTION!!!
   # skip_before_action :verify_authenticity_token
-  before_action :set_book, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:show, :update, :destroy, :edit]
+  before_action :set_authors, only: [:new, :edit]
 
   def index
     @books = Book.all
@@ -12,12 +13,14 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
-    @authors = Author.order(:last_name)
   end
 
   def create
     book = Book.create!(book_params)
     redirect_to book
+  end
+
+  def edit
   end
 
   def update
@@ -34,6 +37,10 @@ class BooksController < ApplicationController
 
   def set_book
     @book = Book.find(params[:id])
+  end
+
+  def set_authors
+    @authors = Author.order(:last_name)
   end
 
   def book_params

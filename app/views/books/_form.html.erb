@@ -1,0 +1,20 @@
+<%= form_with(model: @book, data: {turbo: false}) do |f| %>
+  <fieldset class="mb-2">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </fieldset>
+  <fieldset class="mb-2">
+    <%= f.label :author_id %>
+    <%
+        # collection_select takes 4 params:
+        #   1. The attribute name in this model (book) to store the selected id in
+        #   2. The collection from which to build the options
+        #   3. The attribute in the collection items to use as the value of the option
+        #   4. The attribute in the collection items to use as the caption of the option
+    %>
+    <%= f.collection_select :author_id, @authors, :id, :full_name %>
+  </fieldset>
+  <fieldset>
+    <%= f.submit %>    
+  </fieldset>
+<% end %>
